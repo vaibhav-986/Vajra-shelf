@@ -1,0 +1,17 @@
+C:\Users\gvenk\VajraShelf\Tests\bin\Release\net8.0-windows10.0.19041.0\VajraShelf.Tests.exe
+C:\Users\gvenk\VajraShelf\Tests\bin\Release\net8.0-windows10.0.19041.0\VajraShelf.Tests.deps.json
+C:\Users\gvenk\VajraShelf\Tests\bin\Release\net8.0-windows10.0.19041.0\VajraShelf.Tests.runtimeconfig.json
+C:\Users\gvenk\VajraShelf\Tests\bin\Release\net8.0-windows10.0.19041.0\VajraShelf.Tests.dll
+C:\Users\gvenk\VajraShelf\Tests\bin\Release\net8.0-windows10.0.19041.0\VajraShelf.Tests.pdb
+C:\Users\gvenk\VajraShelf\Tests\bin\Release\net8.0-windows10.0.19041.0\Microsoft.Windows.SDK.NET.dll
+C:\Users\gvenk\VajraShelf\Tests\bin\Release\net8.0-windows10.0.19041.0\WinRT.Runtime.dll
+C:\Users\gvenk\VajraShelf\Tests\obj\Release\net8.0-windows10.0.19041.0\VajraShelf.Tests.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\gvenk\VajraShelf\Tests\obj\Release\net8.0-windows10.0.19041.0\VajraShelf.Tests.AssemblyInfoInputs.cache
+C:\Users\gvenk\VajraShelf\Tests\obj\Release\net8.0-windows10.0.19041.0\VajraShelf.Tests.AssemblyInfo.cs
+C:\Users\gvenk\VajraShelf\Tests\obj\Release\net8.0-windows10.0.19041.0\VajraShelf.Tests.csproj.CoreCompileInputs.cache
+C:\Users\gvenk\VajraShelf\Tests\obj\Release\net8.0-windows10.0.19041.0\VajraShe.5EB3A9E8.Up2Date
+C:\Users\gvenk\VajraShelf\Tests\obj\Release\net8.0-windows10.0.19041.0\VajraShelf.Tests.dll
+C:\Users\gvenk\VajraShelf\Tests\obj\Release\net8.0-windows10.0.19041.0\refint\VajraShelf.Tests.dll
+C:\Users\gvenk\VajraShelf\Tests\obj\Release\net8.0-windows10.0.19041.0\VajraShelf.Tests.pdb
+C:\Users\gvenk\VajraShelf\Tests\obj\Release\net8.0-windows10.0.19041.0\VajraShelf.Tests.genruntimeconfig.cache
+C:\Users\gvenk\VajraShelf\Tests\obj\Release\net8.0-windows10.0.19041.0\ref\VajraShelf.Tests.dll

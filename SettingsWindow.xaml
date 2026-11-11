@@ -1,0 +1,252 @@
+<Window x:Class="VajraShelf.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Vajra Shelf · Settings" Width="620" Height="800"
+        MinWidth="430" MinHeight="360" WindowStartupLocation="CenterOwner"
+        ResizeMode="CanResize" ShowInTaskbar="False"
+        Background="{DynamicResource WindowBackgroundBrush}" Foreground="{DynamicResource TextBrush}"
+        FontFamily="{DynamicResource ShelfFont}" FontSize="13"
+        UseLayoutRounding="True" SnapsToDevicePixels="True" Loaded="Window_Loaded">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/ShelfTheme.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="SettingsPanel" TargetType="Border">
+                <Setter Property="Background" Value="{DynamicResource CardBrush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="CornerRadius" Value="10" />
+                <Setter Property="Padding" Value="19" />
+                <Setter Property="Margin" Value="0,0,0,12" />
+            </Style>
+            <Style x:Key="SettingsLabel" TargetType="Label">
+                <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Margin" Value="0,0,0,4" />
+            </Style>
+            <Style x:Key="SettingsHint" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="{DynamicResource MutedBrush}" />
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="LineHeight" Value="18" />
+                <Setter Property="TextWrapping" Value="Wrap" />
+            </Style>
+            <Style x:Key="ThemeCard" TargetType="RadioButton">
+                <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="Padding" Value="8" />
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="RadioButton">
+                            <Grid>
+                                <Border x:Name="FocusRing" Margin="-3" CornerRadius="9" BorderBrush="{DynamicResource TextBrush}" BorderThickness="2" Opacity="0" />
+                                <Border x:Name="Chrome" CornerRadius="7" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1"
+                                        Background="{DynamicResource SurfaceBrush}" Padding="{TemplateBinding Padding}">
+                                    <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch" RecognizesAccessKey="True" />
+                                </Border>
+                                <Border x:Name="Marker" Width="22" Height="4" CornerRadius="2" Background="{DynamicResource AccentBrush}"
+                                        HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,1" Visibility="Collapsed" />
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Chrome" Property="Background" Value="{DynamicResource ButtonHoverBrush}" /></Trigger>
+                                <Trigger Property="IsChecked" Value="True"><Setter TargetName="Chrome" Property="BorderBrush" Value="{DynamicResource AccentBrush}" /><Setter TargetName="Chrome" Property="BorderThickness" Value="2" /><Setter TargetName="Chrome" Property="Padding" Value="7" /><Setter TargetName="Marker" Property="Visibility" Value="Visible" /></Trigger>
+                                <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="FocusRing" Property="Opacity" Value="1" /></Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="AccentChoice" TargetType="RadioButton">
+                <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+                <Setter Property="MinWidth" Value="68" />
+                <Setter Property="Margin" Value="0,0,7,7" />
+                <Setter Property="Padding" Value="8,7" />
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="RadioButton">
+                            <Border x:Name="Chrome" CornerRadius="6" Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" Padding="{TemplateBinding Padding}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Ellipse Width="14" Height="14" Fill="{TemplateBinding Background}" Stroke="{DynamicResource ControlBorderBrush}" StrokeThickness="1" Margin="0,0,7,0" />
+                                    <ContentPresenter VerticalAlignment="Center" RecognizesAccessKey="True" />
+                                </StackPanel>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Chrome" Property="Background" Value="{DynamicResource ButtonHoverBrush}" /></Trigger>
+                                <Trigger Property="IsChecked" Value="True"><Setter TargetName="Chrome" Property="BorderBrush" Value="{DynamicResource AccentBrush}" /><Setter TargetName="Chrome" Property="BorderThickness" Value="2" /><Setter TargetName="Chrome" Property="Padding" Value="7,6" /></Trigger>
+                                <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="Chrome" Property="BorderBrush" Value="{DynamicResource TextBrush}" /></Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="PrimaryButton" TargetType="Button" BasedOn="{StaticResource ShelfButton}">
+                <Setter Property="Background" Value="{DynamicResource AccentBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource AccentInkBrush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource AccentBrush}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Grid>
+                                <Border x:Name="FocusRing" Margin="-3" CornerRadius="8" BorderBrush="{DynamicResource TextBrush}" BorderThickness="2" Opacity="0" />
+                                <Border Background="{TemplateBinding Background}" CornerRadius="6" />
+                                <Border x:Name="Overlay" Background="White" CornerRadius="6" Opacity="0" />
+                                <ContentPresenter Margin="{TemplateBinding Padding}" HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True" />
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Overlay" Property="Opacity" Value="0.12" /></Trigger>
+                                <Trigger Property="IsPressed" Value="True"><Setter TargetName="Overlay" Property="Background" Value="Black" /><Setter TargetName="Overlay" Property="Opacity" Value="0.12" /></Trigger>
+                                <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="FocusRing" Property="Opacity" Value="1" /></Trigger>
+                                <Trigger Property="IsEnabled" Value="False"><Setter Property="Opacity" Value="0.45" /></Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="*" /><RowDefinition Height="Auto" /></Grid.RowDefinitions>
+
+        <Grid Margin="26,22,26,17">
+            <Grid.ColumnDefinitions><ColumnDefinition Width="Auto" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+            <Border Width="46" Height="46" CornerRadius="8" Background="{DynamicResource RaisedSurfaceBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" Margin="0,0,14,0">
+                <!-- An original shelf bracket mark. -->
+                <Grid Width="27" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Path Data="M 2,3 L 2,22 M 2,18 L 25,18" Stroke="{DynamicResource AccentBrush}" StrokeThickness="2.2" StrokeStartLineCap="Round" StrokeEndLineCap="Round" />
+                    <Path Data="M 7,7 L 22,7 M 9,12 L 19,12" Stroke="{DynamicResource TextBrush}" StrokeThickness="1.6" StrokeStartLineCap="Round" />
+                </Grid>
+            </Border>
+            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                <TextBlock Text="Shape your shelf" FontSize="23" FontWeight="SemiBold" />
+                <TextBlock Text="Tune its look, placement, and shelf life." Style="{StaticResource SettingsHint}" Margin="0,2,0,0" />
+            </StackPanel>
+        </Grid>
+
+        <ScrollViewer x:Name="SettingsScroll" Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"
+                      CanContentScroll="False" Padding="26,2,26,10" Focusable="False">
+            <StackPanel>
+                <Border Style="{StaticResource SettingsPanel}">
+                    <StackPanel>
+                        <TextBlock Text="APPEARANCE" Style="{StaticResource SectionLabel}" />
+                        <TextBlock Text="Choose the shelf material" FontSize="17" FontWeight="SemiBold" Margin="0,0,0,4" />
+                        <TextBlock Text="Preview changes stay inside this window until you save." Style="{StaticResource SettingsHint}" Margin="0,0,0,14" />
+                        <UniformGrid Rows="1" Columns="3" Margin="0,0,0,14" KeyboardNavigation.DirectionalNavigation="Cycle">
+                            <RadioButton x:Name="ThemeDarkChoice" GroupName="Theme" Tag="Dark" Style="{StaticResource ThemeCard}" Margin="0,0,5,0" Checked="ThemeChoice_Checked" AutomationProperties.Name="Dark theme">
+                                <StackPanel>
+                                    <Border Height="46" CornerRadius="5" Background="#0D1517" BorderBrush="#405653" BorderThickness="1" Margin="0,0,0,8">
+                                        <Grid Margin="9"><Border Height="8" CornerRadius="3" Background="#19272A" VerticalAlignment="Top" /><Border Height="5" Width="34" CornerRadius="2" Background="#8FE3CF" HorizontalAlignment="Left" VerticalAlignment="Bottom" /></Grid>
+                                    </Border>
+                                    <AccessText Text="_Dark" HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </RadioButton>
+                            <RadioButton x:Name="ThemeLightChoice" GroupName="Theme" Tag="Light" Style="{StaticResource ThemeCard}" Margin="3,0" Checked="ThemeChoice_Checked" AutomationProperties.Name="Light theme">
+                                <StackPanel>
+                                    <Border Height="46" CornerRadius="5" Background="#F1F7F4" BorderBrush="#9CB5AC" BorderThickness="1" Margin="0,0,0,8">
+                                        <Grid Margin="9"><Border Height="8" CornerRadius="3" Background="#FFFFFF" BorderBrush="#B8CBC4" BorderThickness="1" VerticalAlignment="Top" /><Border Height="5" Width="34" CornerRadius="2" Background="#35675C" HorizontalAlignment="Left" VerticalAlignment="Bottom" /></Grid>
+                                    </Border>
+                                    <AccessText Text="_Light" HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </RadioButton>
+                            <RadioButton x:Name="ThemeGlassChoice" GroupName="Theme" Tag="Glass" Style="{StaticResource ThemeCard}" Margin="5,0,0,0" Checked="ThemeChoice_Checked" AutomationProperties.Name="Glass theme">
+                                <StackPanel>
+                                    <Grid Height="46" Margin="0,0,0,8">
+                                        <Border CornerRadius="5" Background="#52716C" />
+                                        <Path Data="M 0,38 L 30,0 L 52,0 L 22,46 Z" Fill="#9AC6B8" />
+                                        <Border CornerRadius="5" Background="#D9172528" BorderBrush="#718885" BorderThickness="1"><Grid Margin="9"><Border Height="8" CornerRadius="3" Background="#6026383B" VerticalAlignment="Top" /><Border Height="5" Width="34" CornerRadius="2" Background="#8FE3CF" HorizontalAlignment="Left" VerticalAlignment="Bottom" /></Grid></Border>
+                                    </Grid>
+                                    <AccessText Text="_Glass" HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </RadioButton>
+                        </UniformGrid>
+
+                        <Border Background="{DynamicResource PreviewBackdropBrush}" CornerRadius="8" Height="96" Margin="0,0,0,9" ClipToBounds="True">
+                            <Grid>
+                                <Path Data="M 0,80 C 75,35 135,105 230,35 C 290,-8 360,18 460,66 L 460,100 L 0,100 Z" Fill="{DynamicResource PreviewShapeBrush}" Stretch="Fill" Opacity="0.75" />
+                                <Border Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="8" Margin="25,20">
+                                    <Grid>
+                                        <Border Background="{DynamicResource ShelfHighlightBrush}" CornerRadius="7" />
+                                        <Grid Margin="14,10">
+                                            <Grid.ColumnDefinitions><ColumnDefinition Width="Auto" /><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                            <Border Width="5" Height="32" CornerRadius="2.5" Background="{DynamicResource AccentBrush}" Margin="0,0,11,0" />
+                                            <StackPanel Grid.Column="1" VerticalAlignment="Center"><TextBlock Text="Your shelf, ready when needed" FontWeight="SemiBold" FontSize="12" /><TextBlock x:Name="ThemePreviewLabel" Text="Dark · grounded" Foreground="{DynamicResource MutedBrush}" FontSize="11" Margin="0,3,0,0" /></StackPanel>
+                                            <TextBlock Grid.Column="2" Text="3 ITEMS" Foreground="{DynamicResource AccentBrush}" FontSize="10" FontWeight="SemiBold" VerticalAlignment="Center" />
+                                        </Grid>
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </Border>
+                        <TextBlock x:Name="ThemeMaterialHint" Text="Deep opaque surfaces with a crisp mint signal." Style="{StaticResource SettingsHint}" Margin="0,0,0,17" AutomationProperties.LiveSetting="Polite" />
+                        <Border Height="1" Background="{DynamicResource BorderBrush}" Margin="0,0,0,16" />
+                        <TextBlock Text="ACCENT" Style="{StaticResource SectionLabel}" />
+                        <WrapPanel x:Name="AccentChoices" KeyboardNavigation.DirectionalNavigation="Cycle">
+                            <RadioButton GroupName="Accent" Content="_Mint" Tag="#8FE3CF" Background="#8FE3CF" Style="{StaticResource AccentChoice}" Checked="AccentChoice_Checked" />
+                            <RadioButton GroupName="Accent" Content="_Sky" Tag="#8FC9F5" Background="#8FC9F5" Style="{StaticResource AccentChoice}" Checked="AccentChoice_Checked" />
+                            <RadioButton GroupName="Accent" Content="_Amber" Tag="#F2C879" Background="#F2C879" Style="{StaticResource AccentChoice}" Checked="AccentChoice_Checked" />
+                            <RadioButton GroupName="Accent" Content="_Coral" Tag="#F3A594" Background="#F3A594" Style="{StaticResource AccentChoice}" Checked="AccentChoice_Checked" />
+                            <RadioButton GroupName="Accent" Content="_Violet" Tag="#BBA8F5" Background="#BBA8F5" Style="{StaticResource AccentChoice}" Checked="AccentChoice_Checked" />
+                        </WrapPanel>
+                        <Grid Margin="0,5,0,0">
+                            <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="140" /></Grid.ColumnDefinitions>
+                            <StackPanel VerticalAlignment="Center" Margin="0,0,14,0"><Label Content="Custom _hex" Target="{Binding ElementName=AccentInput}" Style="{StaticResource SettingsLabel}" /><TextBlock Text="Six digits, in #RRGGBB format." Style="{StaticResource SettingsHint}" /></StackPanel>
+                            <TextBox x:Name="AccentInput" Grid.Column="1" Style="{StaticResource TextBox}" MaxLength="7" TextChanged="AccentInput_TextChanged" AutomationProperties.Name="Custom accent hex color" SpellCheck.IsEnabled="False" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource SettingsPanel}">
+                    <StackPanel>
+                        <TextBlock Text="PLACEMENT" Style="{StaticResource SectionLabel}" />
+                        <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions><Label Content="Shelf _scale" Target="{Binding ElementName=ScaleSlider}" Style="{StaticResource SettingsLabel}" /><TextBlock Grid.Column="1" Text="{Binding ElementName=ScaleSlider, Path=Value, StringFormat={}{0:P0}}" Foreground="{DynamicResource AccentBrush}" FontWeight="SemiBold" /></Grid>
+                        <Slider x:Name="ScaleSlider" Style="{StaticResource Slider}" Minimum="0.8" Maximum="1.5" TickFrequency="0.05" SmallChange="0.05" LargeChange="0.1" IsSnapToTickEnabled="True" AutomationProperties.Name="Shelf scale" />
+                        <Grid Margin="0,0,0,15"><TextBlock Text="80%" Style="{StaticResource SettingsHint}" /><TextBlock Text="150%" Style="{StaticResource SettingsHint}" HorizontalAlignment="Right" /></Grid>
+                        <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions><Label Content="Offset from _top" Target="{Binding ElementName=OffsetSlider}" Style="{StaticResource SettingsLabel}" /><TextBlock Grid.Column="1" Text="{Binding ElementName=OffsetSlider, Path=Value, StringFormat={}{0:0} DIP}" Foreground="{DynamicResource AccentBrush}" FontWeight="SemiBold" /></Grid>
+                        <Slider x:Name="OffsetSlider" Style="{StaticResource Slider}" Minimum="0" Maximum="200" TickFrequency="1" SmallChange="1" LargeChange="10" IsSnapToTickEnabled="True" Margin="0,0,0,13" AutomationProperties.Name="Offset from top" />
+                        <Label Content="_Display" Target="{Binding ElementName=MonitorSelector}" Style="{StaticResource SettingsLabel}" />
+                        <ComboBox x:Name="MonitorSelector" Style="{StaticResource ComboBox}" AutomationProperties.Name="Shelf display" />
+                        <TextBlock Text="If that display is unavailable, Vajra Shelf uses the primary display." Style="{StaticResource SettingsHint}" Margin="0,5,0,0" />
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource SettingsPanel}">
+                    <StackPanel>
+                        <TextBlock Text="BEHAVIOR" Style="{StaticResource SectionLabel}" />
+                        <CheckBox x:Name="HoverCheck" Content="_Expand when the pointer rests on the shelf" Style="{StaticResource CheckBox}" />
+                        <TextBlock Text="Reveal controls without an extra click." Style="{StaticResource SettingsHint}" Margin="33,0,0,8" />
+                        <CheckBox x:Name="MotionCheck" Content="_Reduce motion" Style="{StaticResource CheckBox}" />
+                        <TextBlock Text="Use immediate, quieter transitions." Style="{StaticResource SettingsHint}" Margin="33,0,0,8" />
+                        <CheckBox x:Name="FullscreenCheck" Content="Hide during _fullscreen apps" Style="{StaticResource CheckBox}" />
+                        <TextBlock Text="Stay out of the way during games and presentations." Style="{StaticResource SettingsHint}" Margin="33,0,0,13" />
+                        <Label Content="Temporary item _expiry" Target="{Binding ElementName=ExpirySelector}" Style="{StaticResource SettingsLabel}" />
+                        <ComboBox x:Name="ExpirySelector" Style="{StaticResource ComboBox}" AutomationProperties.Name="Temporary item expiry" />
+                        <TextBlock Text="Pinned items do not expire." Style="{StaticResource SettingsHint}" Margin="0,5,0,0" />
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource SettingsPanel}">
+                    <StackPanel>
+                        <TextBlock Text="WINDOWS" Style="{StaticResource SectionLabel}" />
+                        <CheckBox x:Name="StartupCheck" Content="Start at Windows _sign-in" Style="{StaticResource CheckBox}" AutomationProperties.HelpText="Optional. Applied only after saving." />
+                        <TextBlock Text="Off by default. Saving asks the app to apply this choice." Style="{StaticResource SettingsHint}" Margin="33,0,0,0" />
+                    </StackPanel>
+                </Border>
+                <TextBlock Text="Nothing changes outside this preview until you save." Style="{StaticResource SettingsHint}" Margin="2,0,0,5" />
+            </StackPanel>
+        </ScrollViewer>
+
+        <Border Grid.Row="2" Background="{DynamicResource WindowBackgroundBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0,1,0,0" Padding="26,13,26,17">
+            <StackPanel>
+                <TextBlock x:Name="ErrorText" Foreground="{DynamicResource ErrorBrush}" TextWrapping="Wrap" Visibility="Collapsed" Margin="0,0,0,11" AutomationProperties.LiveSetting="Assertive" />
+                <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                    <Button Grid.Column="1" Content="_Cancel" IsCancel="True" Click="Cancel_Click" Style="{StaticResource ShelfButton}" MinWidth="88" Margin="0,0,10,0" />
+                    <Button x:Name="SaveButton" Grid.Column="2" Content="_Save settings" IsDefault="True" Click="Save_Click" Style="{StaticResource PrimaryButton}" MinWidth="126" />
+                </Grid>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
